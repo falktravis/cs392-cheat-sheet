@@ -1,7 +1,7 @@
-using Edge = pair<int, int>; // (neighbor, weight)
-using PQEntry = pair<int, int>; // (node, distance)
+using Edge = pair<ll, ll>; // (neighbor, weight)
+using PQEntry = pair<ll, ll>; // (node, distance)
 
-void dijkstra(vector<vector<Edge>>& graph, vector<int>& dist, ll source) {
+void dijkstra(vector<vector<Edge>>& graph, vector<ll>& dist, ll source) {
 	dist[source] = 0;
 	
 	priority_queue<PQEntry, vector<PQEntry>, greater<PQEntry>> pq;
