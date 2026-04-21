@@ -1,6 +1,8 @@
+// Adjacency Matrix
 queue<ll> q;
 vector<bool> visited(n, false);
 q.push(0);
+visited(0) = true;
 while (!q.empty()){
 	ll front = q.front();
 	q.pop();
@@ -13,4 +15,23 @@ while (!q.empty()){
 			}
 		}
 	}
+}
+
+
+// Adjacency List
+queue<ll> q;
+vector<bool> visited(n, false);
+q.push(0);
+visited(0) = true;
+while (!q.empty()){
+	ll front = q.front();
+	q.pop();
+	
+	for (ll neighbor : adjList[front]){
+		if (!visited[neighbor]){
+			q.push(neighbor);
+			visited[neighbor] = true;
+		}
+	}
+
 }
