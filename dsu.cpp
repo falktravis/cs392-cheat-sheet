@@ -32,4 +32,4 @@ struct DSU {
 		size[root_i] += size[root_j];
 		return true;
 	}
-}
+};
