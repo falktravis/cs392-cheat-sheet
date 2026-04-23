@@ -110,10 +110,6 @@ vector<ll> dijkstra(ll src, ll n, vector<vector<pair<ll,ll>>>& adj) {
     return dist; // dist[i] = shortest distance from src to i, INF if unreachable
 }
 
-
-// ============================================================
-//  MAIN — Example usage
-// ============================================================
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
