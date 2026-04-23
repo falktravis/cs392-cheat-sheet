@@ -1,0 +1,598 @@
+\documentclass[10pt,letterpaper]{extarticle}
+
+% ---- Packages ----
+\usepackage[margin=0.35in]{geometry}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+
+% ---- Color palette (ink-friendly, scannable) ----
+\definecolor{kw}{HTML}{0033B3}      % keywords: deep blue
+\definecolor{tp}{HTML}{1750A8}      % types: slightly lighter blue
+\definecolor{cm}{HTML}{8C8C8C}      % comments: medium gray
+\definecolor{str}{HTML}{067D17}     % strings: green
+\definecolor{num}{HTML}{1750EB}     % numbers: blue
+\definecolor{rulec}{HTML}{C8C8C8}   % section rules: light gray
+
+% ---- Layout tweaks for density ----
+\setlength{\columnsep}{0.2in}
+\setlength{\columnseprule}{0.3pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\pagestyle{empty}
+
+% ---- Section styling: tight, bold, ruled ----
+\titleformat{\section}
+  {\normalfont\bfseries\large}{}{0pt}{}[{\color{rulec}\titlerule[0.5pt]}]
+\titlespacing*{\section}{0pt}{4pt}{2pt}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\small}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{3pt}{0pt}
+
+% ---- Listings setup for C++ ----
+\lstdefinestyle{cpp}{
+  language=C++,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{kw}\bfseries,
+  keywordstyle=[2]\color{tp}\bfseries,
+  commentstyle=\color{cm}\itshape,
+  stringstyle=\color{str},
+  numberstyle=\color{num},
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  tabsize=2,
+  aboveskip=2pt,
+  belowskip=1pt,
+  xleftmargin=0pt,
+  frame=none,
+  lineskip=-0.5pt,
+  morekeywords=[2]{ll,size_t,pair,pairll,vector,map,unordered_map,set,unordered_set,multiset,queue,priority_queue,stack,tuple,string,auto},
+  literate={~}{{$\sim$}}1
+}
+\lstset{style=cpp}
+
+% ---- Minipage-style "box" that won't break across columns ----
+\newenvironment{block}[1]
+  {\subsection*{#1}\nopagebreak}
+  {\par\addvspace{2pt}}
+
+\begin{document}
+\begin{multicols*}{2}
+\raggedright
+\raggedcolumns
+
+% ==============================================================
+% HEADER
+% ==============================================================
+\begin{center}
+{\Large\bfseries CS 392 Final Cheat Sheet}\\[-1pt]
+{\scriptsize Travis Falk \textbullet{} C++ competitive programming reference}
+\end{center}
+
+\begin{lstlisting}
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using pairll = pair<ll,ll>;
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  // ... solve ...
+  return 0;
+}
+\end{lstlisting}
+
+% ==============================================================
+% PART 1: PRIMITIVES / TEMPLATES
+% ==============================================================
+\section*{PART I \textemdash{} Primitives}
+
+% ---- Vectors ----
+\begin{block}{Vectors}
+\begin{lstlisting}
+// Dynamic array. [] and .at() are O(1).
+// push/pop_back O(1). insert/erase mid O(N).
+vector<ll> v;                  // empty
+vector<ll> a(5);               // 5 zeros
+vector<ll> b(5, 10);           // {10,10,10,10,10}
+vector<ll> c = {5,2,8,1,9};
+vector<ll> d(c.begin(), c.begin()+3);    // {5,2,8}
+vector<vector<ll>> grid(n, vector<ll>(m, 0));
+
+v.push_back(7);   v.emplace_back(7);
+v.pop_back();
+v.insert(v.begin()+2, 99);     // O(N)
+v.erase(v.begin()+2);          // remove idx 2
+v.erase(v.begin(), v.begin()+2);
+v.clear(); v.resize(10); v.resize(10, -1);
+fill(v.begin(), v.end(), 0);
+
+ll x = v[0];    ll y = v.at(0);   // .at() throws
+ll n = v.size();  bool e = v.empty();
+\end{lstlisting}
+\end{block}
+
+% ---- Sorting & Algorithms ----
+\begin{block}{Sorting \& <algorithm>}
+\begin{lstlisting}
+sort(v.begin(), v.end());                // asc
+sort(v.begin(), v.end(), greater<ll>()); // desc
+sort(v.begin(), v.end(),
+     [](ll a, ll b){ return a > b; });   // custom
+reverse(v.begin(), v.end());
+
+auto it  = find(v.begin(), v.end(), 5);
+ll   cnt = count(v.begin(), v.end(), 5);
+ll   mn  = *min_element(v.begin(), v.end());
+ll   mx  = *max_element(v.begin(), v.end());
+ll   sum = accumulate(v.begin(), v.end(), 0LL);
+iota(v.begin(), v.end(), 0);    // 0,1,2,3,...
+
+// Dedupe: sort + unique + erase
+sort(v.begin(), v.end());
+v.erase(unique(v.begin(), v.end()), v.end());
+
+// All permutations (must start sorted)
+sort(v.begin(), v.end());
+do { /* process v */ }
+while (next_permutation(v.begin(), v.end()));
+\end{lstlisting}
+\end{block}
+
+% ---- Binary Search / Bounds ----
+\begin{block}{Binary Search \& Bounds (sorted vector)}
+\begin{lstlisting}
+// 4 shapes -- all O(log N):
+//   first >= x :  lower_bound(x)
+//   first >  x :  upper_bound(x)
+//   last  <  x :  lower_bound(x), --it (skip if begin)
+//   last  <= x :  upper_bound(x), --it (skip if begin)
+
+bool found = binary_search(v.begin(), v.end(), 5);
+auto lb = lower_bound(v.begin(), v.end(), 4);
+auto ub = upper_bound(v.begin(), v.end(), 4);
+
+// Once you have a bound iterator:
+if (lb == v.end()) { /* no match */ }
+ll val = *lb;
+ll idx = lb - v.begin();   // O(1) for vector
+*lb = 99;                  // mutate (may break sort!)
+v.erase(lb);               // O(N), invalidates lb
+\end{lstlisting}
+\end{block}
+
+% ---- Queues & PQs ----
+\begin{block}{Queue, Stack, Priority Queue}
+\begin{lstlisting}
+queue<ll> q;  q.push(1); q.push(2);
+ll f = q.front();  ll b = q.back();
+q.pop();  q.size();  q.empty();
+
+stack<ll> s;  s.push(1); s.push(2);
+if (!s.empty()) { ll t = s.top(); s.pop(); }
+
+// Max-heap (default)
+priority_queue<ll> pq;
+pq.push(10); pq.push(20);
+ll top = pq.top(); pq.pop();          // 20
+
+// Min-heap (3 template args required)
+priority_queue<ll, vector<ll>, greater<ll>> minpq;
+
+// PQ of pairs -- lex compare by first, then second.
+priority_queue<pairll> pqp;          // max by first
+priority_queue<pairll, vector<pairll>,
+               greater<pairll>> pqmin;  // Dijkstra shape
+
+// PQ with custom comparator (struct, not lambda)
+struct Cmp {
+  bool operator()(const pairll& a, const pairll& b)
+    const { return a.second > b.second; } // min by 2nd
+};
+priority_queue<pairll, vector<pairll>, Cmp> pqc;
+\end{lstlisting}
+\end{block}
+
+% ---- Maps ----
+\begin{block}{Maps (ordered \& unordered)}
+\begin{lstlisting}
+// map: red-black tree, O(log N), needs <.
+// unordered_map: hash, O(1) avg / O(N) worst.
+map<string,ll> m;
+unordered_map<string,ll> um;
+
+m["apple"] = 5;              // creates if absent
+ll v = m["apple"];           // WARNING: creates!
+m.insert({"banana", 3});     // no-op if present
+m.emplace("cherry", 7);
+m.erase("apple");
+
+// Safe existence (does NOT insert)
+if (m.count("apple")) { }
+if (m.find("apple") != m.end()) { }
+
+for (auto& [k,v] : m) { }   // sorted for map
+
+// Ordered-map binary search (NOT on unordered):
+auto it = m.lower_bound(key);  // first >= key
+auto jt = m.upper_bound(key);  // first >  key
+// Once you have it:  it->first (key), it->second (val)
+// it->second = x; is OK; key is const.
+// next(it), prev(it) for neighbors.
+// Min key: m.begin()->first; max: m.rbegin()->first.
+\end{lstlisting}
+\end{block}
+
+% ---- Sets ----
+\begin{block}{Sets (set, multiset, unordered\_set)}
+\begin{lstlisting}
+set<ll> s = {3,1,4,1,5};    // {1,3,4,5}
+multiset<ll> ms = {1,1,2};  // {1,1,2} dupes OK
+unordered_set<ll> us;
+
+s.insert(2); s.erase(3);     // O(log N)
+ms.erase(1);                 // removes ALL 1s
+ms.erase(ms.find(1));        // removes ONE 1
+
+bool has = s.count(2);       // 0 or 1 for set
+ll freq = ms.count(1);       // real count
+
+// Ordered binary search (NOT on unordered):
+auto it = s.lower_bound(4);  // first >= 4
+auto jt = s.upper_bound(4);  // first >  4
+// Predecessor (last < x):
+//   auto p = s.lower_bound(x);
+//   if (p != s.begin()) --p;
+
+*s.begin();    // min
+*s.rbegin();   // max
+// Values read-only thru iterator (would break order).
+\end{lstlisting}
+\end{block}
+
+% ---- Strings ----
+\begin{block}{Strings}
+\begin{lstlisting}
+string s = "hello";
+string t(5, 'a');              // "aaaaa"
+// getline(cin, s);            // whole line
+s += " world";  s.push_back('!');  s.pop_back();
+s.insert(5, "XYZ");
+s.erase(0, 3);                 // erase 3 chars @ idx 0
+s.replace(0, 5, "HELLO");
+reverse(s.begin(), s.end());
+
+string sub = s.substr(0, 4);   // (start, length)
+string suf = s.substr(4);      // to end
+
+size_t p = s.find("lo");       // or npos
+size_t r = s.rfind("lo");      // last occurrence
+if (p != string::npos) { }
+
+ll   i = stoll("12345678901");
+double d = stod("3.14");
+string sn = to_string(42);
+// <cctype>: isdigit isalpha isalnum isspace
+//           islower isupper tolower toupper
+\end{lstlisting}
+\end{block}
+
+% ---- Pairs & Tuples ----
+\begin{block}{Pairs \& Tuples}
+\begin{lstlisting}
+pair<ll,string> p = {1, "hi"};
+auto [a,b] = p;                // structured binding
+
+tuple<ll,double,string> t = {1, 3.14, "Pi"};
+ll i = get<0>(t);
+auto [A,B,C] = t;              // preferred
+tie(i, /*...*/) = t;           // unpack into vars
+
+// Both compare LEXICOGRAPHICALLY.
+vector<pairll> vp = {{3,1},{1,5},{2,2}};
+sort(vp.begin(), vp.end());    // {{1,5},{2,2},{3,1}}
+\end{lstlisting}
+\end{block}
+
+% ---- DSU ----
+\begin{block}{Disjoint Set Union (Union-Find)}
+\begin{lstlisting}
+// find + unite: O(alpha(n)) ~ O(1) amortized.
+struct DSU {
+  vector<ll> parent, sz;
+  DSU(ll n) : parent(n), sz(n, 1) {
+    iota(parent.begin(), parent.end(), 0);
+  }
+  ll find(ll i) {
+    if (parent[i] == i) return i;
+    return parent[i] = find(parent[i]);   // path compr.
+  }
+  bool unite(ll i, ll j) {
+    ll ri = find(i), rj = find(j);
+    if (ri == rj) return false;
+    if (sz[ri] < sz[rj]) swap(ri, rj);    // union by sz
+    parent[rj] = ri;
+    sz[ri] += sz[rj];
+    return true;
+  }
+};
+\end{lstlisting}
+\end{block}
+
+% ---- Segment Tree (point update, range sum) ----
+\begin{block}{Segment Tree (point update, range sum)}
+\begin{lstlisting}
+// build O(N), update O(log N), query [l,r) O(log N).
+// Iterative; 1-indexed internally; tree size = 2n.
+class SegTree {
+public:
+  vector<ll> tree;
+  ll n, sz;
+  SegTree(vector<ll>& ar) {
+    sz = ar.size();
+    n = 1;
+    while (n < sz) n <<= 1;
+    tree.assign(2*n, 0);
+    for (ll i = 0; i < sz; i++) tree[i+n] = ar[i];
+    for (ll i = n-1; i > 0; i--)
+      tree[i] = tree[2*i] + tree[2*i+1];
+  }
+  void update(ll i, ll val) {
+    i += n;  tree[i] = val;
+    while (i > 1) { i /= 2; tree[i] = tree[2*i] + tree[2*i+1]; }
+  }
+  ll query(ll l, ll r) {   // sum over [l, r)
+    ll ans = 0;
+    l += n; r += n;
+    while (l < r) {
+      if (l & 1) ans += tree[l++];
+      if (r & 1) ans += tree[--r];
+      l >>= 1;  r >>= 1;
+    }
+    return ans;
+  }
+};
+\end{lstlisting}
+\end{block}
+
+% ---- Sieve ----
+\begin{block}{Sieve of Eratosthenes (smallest prime factor)}
+\begin{lstlisting}
+// sieve[x] = 0 if x prime, else smallest prime factor.
+// O(n log log n).
+vector<ll> sieve(n+1, 0);
+for (ll x = 2; x <= n; x++) {
+  if (sieve[x]) continue;              // x is prime
+  for (ll u = 2*x; u <= n; u += x)
+    if (!sieve[u]) sieve[u] = x;
+}
+// To factor k: while (sieve[k]) { p = sieve[k]; k/=p; }
+//              then k itself is a prime factor (if >1).
+\end{lstlisting}
+\end{block}
+
+% ---- BFS ----
+\begin{block}{BFS (unweighted shortest path)}
+\begin{lstlisting}
+// O(V + E). dist[i] = hops from src, -1 if unreachable.
+vector<ll> bfs(ll src, ll n, vector<vector<ll>>& adj) {
+  vector<ll> dist(n+1, -1);
+  queue<ll> q;
+  dist[src] = 0;  q.push(src);
+  while (!q.empty()) {
+    ll u = q.front(); q.pop();
+    for (ll v : adj[u]) if (dist[v] == -1) {
+      dist[v] = dist[u] + 1;
+      q.push(v);
+    }
+  }
+  return dist;
+}
+\end{lstlisting}
+\end{block}
+
+% ---- DFS ----
+\begin{block}{DFS (iterative \& recursive)}
+\begin{lstlisting}
+// Iterative: component detection, reachability.
+vector<bool> dfs_it(ll src, ll n, vector<vector<ll>>& adj) {
+  vector<bool> vis(n+1, false);
+  stack<ll> st;  st.push(src);
+  while (!st.empty()) {
+    ll u = st.top(); st.pop();
+    if (vis[u]) continue;
+    vis[u] = true;
+    for (ll v : adj[u]) if (!vis[v]) st.push(v);
+  }
+  return vis;
+}
+
+// Recursive: trees, backtracking, coloring.
+vector<bool> vis;   // global to avoid passing
+void dfs(ll u, vector<vector<ll>>& adj) {
+  vis[u] = true;
+  for (ll v : adj[u]) if (!vis[v]) dfs(v, adj);
+}
+// Usage:  vis.assign(n+1, false);  dfs(src, adj);
+\end{lstlisting}
+\end{block}
+
+% ---- Dijkstra ----
+\begin{block}{Dijkstra (non-negative weights)}
+\begin{lstlisting}
+// O((V+E) log V). adj[u] = {(v, w), ...}.
+vector<ll> dijkstra(ll src, ll n,
+                    vector<vector<pairll>>& adj) {
+  const ll INF = 1e18;
+  vector<ll> dist(n+1, INF);
+  priority_queue<pairll, vector<pairll>,
+                 greater<pairll>> pq;     // min-heap
+  dist[src] = 0;
+  pq.push({0, src});
+  while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    if (d > dist[u]) continue;            // stale
+    for (auto [v, w] : adj[u]) {
+      if (dist[u] + w < dist[v]) {
+        dist[v] = dist[u] + w;
+        pq.push({dist[v], v});
+      }
+    }
+  }
+  return dist;
+}
+\end{lstlisting}
+\end{block}
+
+% ---- DP Templates ----
+\begin{block}{DP: 0/1 Knapsack (1D)}
+\begin{lstlisting}
+// dp[j] = max value at capacity j.
+// Items OUTER, capacity BACKWARD (prevents re-use).
+vector<ll> dp(W+1, 0);
+for (ll i = 0; i < n; i++) {
+  for (ll j = W; j >= weight[i]; j--) {
+    dp[j] = max(dp[j], dp[j-weight[i]] + value[i]);
+  }
+}
+cout << dp[W];
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Unbounded Knapsack (1D)}
+\begin{lstlisting}
+// Each item takeable unlimited times.
+// Items OUTER, capacity FORWARD (allows re-use).
+vector<ll> dp(W+1, 0);
+for (ll i = 0; i < n; i++) {
+  for (ll j = weight[i]; j <= W; j++) {
+    dp[j] = max(dp[j], dp[j-weight[i]] + value[i]);
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Bounded Knapsack (binary decomp \textrightarrow{} 0/1)}
+\begin{lstlisting}
+// copies[i] copies of item i. Decompose into bundles
+// of sizes 1,2,4,...,rem which sum to copies[i].
+// Any count 0..copies[i] = subset sum of bundles.
+vector<pairll> bundles;  // (weight, value)
+for (ll i = 0; i < n; i++) {
+  ll k = copies[i];
+  for (ll t = 1; t <= k; t *= 2) {
+    bundles.push_back({t*weight[i], t*value[i]});
+    k -= t;
+  }
+  if (k > 0)
+    bundles.push_back({k*weight[i], k*value[i]});
+}
+// Then standard 0/1 knapsack over bundles.
+vector<ll> dp(W+1, 0);
+for (auto [w, v] : bundles) {
+  for (ll j = W; j >= w; j--) {
+    dp[j] = max(dp[j], dp[j-w] + v);
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Counting (ordered composition)}
+\begin{lstlisting}
+// # ways to make sum n using parts from S, order matters.
+// e.g. dice: S = {1,2,3,4,5,6}.  1+2 != 2+1.
+// Target OUTER, parts INNER.
+const ll MOD = 1000000007;
+vector<ll> dp(n+1, 0);
+dp[0] = 1;
+for (ll s = 1; s <= n; s++) {
+  for (ll k : {1,2,3,4,5,6}) {
+    if (s - k >= 0)
+      dp[s] = (dp[s] + dp[s-k]) % MOD;
+  }
+}
+cout << dp[n];
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Counting (unordered -- coin change)}
+\begin{lstlisting}
+// # ways to make sum n using coins in C, order irrelevant.
+// 1+2 and 2+1 counted ONCE.
+// Coins OUTER, target INNER.  (swap vs ordered version)
+vector<ll> dp(n+1, 0);
+dp[0] = 1;
+for (ll c : coins) {
+  for (ll s = c; s <= n; s++) {
+    dp[s] += dp[s - c];
+  }
+}
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Longest Common Subsequence}
+\begin{lstlisting}
+// dp[i][j] = LCS length of a[0..i) and b[0..j).
+ll n = a.size(), m = b.size();
+vector<vector<ll>> dp(n+1, vector<ll>(m+1, 0));
+for (ll i = 1; i <= n; i++) {
+  for (ll j = 1; j <= m; j++) {
+    if (a[i-1] == b[j-1])
+      dp[i][j] = dp[i-1][j-1] + 1;
+    else
+      dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+  }
+}
+cout << dp[n][m];
+\end{lstlisting}
+\end{block}
+
+\begin{block}{DP: Edit Distance (Levenshtein)}
+\begin{lstlisting}
+// dp[i][j] = min edits to make a[0..i) == b[0..j).
+vector<vector<ll>> dp(n+1, vector<ll>(m+1));
+for (ll i = 0; i <= n; i++) dp[i][0] = i;  // deletions
+for (ll j = 0; j <= m; j++) dp[0][j] = j;  // insertions
+for (ll i = 1; i <= n; i++) {
+  for (ll j = 1; j <= m; j++) {
+    if (a[i-1] == b[j-1])
+      dp[i][j] = dp[i-1][j-1];
+    else
+      dp[i][j] = 1 + min({dp[i-1][j],       // delete
+                          dp[i][j-1],       // insert
+                          dp[i-1][j-1]});   // replace
+  }
+}
+\end{lstlisting}
+\end{block}
+
+% ---- DP direction cheat sheet ----
+\begin{block}{DP Knapsack-Family Direction Table}
+\begin{lstlisting}
+// Problem         | Outer  | Inner     | Note
+// --------------- | ------ | --------- | -----------------
+// 0/1 knapsack    | items  | cap BACK  | each used <= 1x
+// Unbounded knap  | items  | cap FWD   | unlimited uses
+// Bounded knap    | bundles| cap BACK  | decompose first
+// Count ordered   | target | parts     | 1+2 != 2+1
+// Count unordered | coins  | target    | 1+2 == 2+1
+//
+// Mental model when collapsing 2D -> 1D:
+//   "previous row" lives in not-yet-overwritten cells.
+//   BACKWARD iter: reads old row's smaller index.
+//   FORWARD iter: reads THIS row's smaller index.
+\end{lstlisting}
+\end{block}
+
+
+\end{multicols*}
+\end{document}
