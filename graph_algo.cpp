@@ -1,39 +1,24 @@
-// ============================================================
-//  GRAPH ALGORITHM TEMPLATES — ICPC / CSES / Codeforces
-// ============================================================
-
-#include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
 
-typedef long long ll;
-typedef pair<ll,int> pli;   // (dist, node) for Dijkstra
-
-// ------------------------------------------------------------
-//  GRAPH REPRESENTATION
-//  Unweighted: vector<vector<int>> adj(n+1);
-//  Weighted:   vector<vector<pair<int,ll>>> adj(n+1);
-//
-//  Add undirected edge (unweighted): adj[u].push_back(v); adj[v].push_back(u);
-//  Add directed edge (weighted):     adj[u].push_back({v, w});
-// ------------------------------------------------------------
-
+using pairll = pair<ll, ll>;   // (dist, node) for Dijkstra
 
 // ============================================================
 //  BFS — Unweighted Shortest Path
 //  - Single source shortest path on unweighted graphs
 //  - Time: O(V + E)
 // ============================================================
-vector<int> bfs(int src, int n, vector<vector<int>>& adj) {
-    vector<int> dist(n + 1, -1);
-    queue<int> q;
+vector<ll> bfs(ll src, ll n, vector<vector<ll>>& adj) {
+    vector<ll> dist(n + 1, -1);
+    queue<ll> q;
 
     dist[src] = 0;
     q.push(src);
 
     while (!q.empty()) {
-        int u = q.front(); q.pop();
+        ll u = q.front(); q.pop();
 
-        for (int v : adj[u]) {
+        for (ll v : adj[u]) {
             if (dist[v] == -1) {
                 dist[v] = dist[u] + 1;
                 q.push(v);
@@ -49,19 +34,19 @@ vector<int> bfs(int src, int n, vector<vector<int>>& adj) {
 //  - Component detection, cycle detection, topological sort
 //  - Time: O(V + E)
 // ============================================================
-vector<bool> dfs_iterative(int src, int n, vector<vector<int>>& adj) {
+vector<bool> dfs_iterative(ll src, ll n, vector<vector<ll>>& adj) {
     vector<bool> visited(n + 1, false);
-    stack<int> st;
+    stack<ll> st;
 
     st.push(src);
 
     while (!st.empty()) {
-        int u = st.top(); st.pop();
+        ll u = st.top(); st.pop();
 
         if (visited[u]) continue;
         visited[u] = true;
 
-        for (int v : adj[u]) {
+        for (ll v : adj[u]) {
             if (!visited[v]) {
                 st.push(v);
             }
@@ -78,10 +63,10 @@ vector<bool> dfs_iterative(int src, int n, vector<vector<int>>& adj) {
 // ============================================================
 vector<bool> visited_r; // global to avoid passing by reference
 
-void dfs_recursive(int u, vector<vector<int>>& adj) {
+void dfs_recursive(ll u, vector<vector<ll>>& adj) {
     visited_r[u] = true;
 
-    for (int v : adj[u]) {
+    for (ll v : adj[u]) {
         if (!visited_r[v]) {
             dfs_recursive(v, adj);
         }
@@ -98,23 +83,23 @@ void dfs_recursive(int u, vector<vector<int>>& adj) {
 //  - Single source shortest path
 //  - Time: O((V + E) log V)
 // ============================================================
-vector<ll> dijkstra(int src, int n, vector<vector<pair<int,ll>>>& adj) {
+vector<ll> dijkstra(ll src, ll n, vector<vector<pair<ll,ll>>>& adj) {
     const ll INF = 1e18;
     vector<ll> dist(n + 1, INF);
-    priority_queue<pli, vector<pli>, greater<pli>> pq; // min-heap
+    priority_queue<pli, vector<pairll>, greater<pairll>> pq; // min-heap
 
     dist[src] = 0;
     pq.push({0, src});
 
     while (!pq.empty()) {
         ll d = pq.top().first;
-        int u = pq.top().second;
+        ll u = pq.top().second;
         pq.pop();
 
         if (d > dist[u]) continue; // stale entry
 
-        for (int i = 0; i < (int)adj[u].size(); i++) {
-            int v = adj[u][i].first;
+        for (ll i = 0; i < (ll)adj[u].size(); i++) {
+            ll v = adj[u][i].first;
             ll w = adj[u][i].second;
             if (dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
@@ -137,14 +122,14 @@ int main() {
     cin >> n >> m;
 
     // --- Unweighted graph (BFS / DFS) ---
-    vector<vector<int>> adj_uw(n + 1);
-    for (int i = 0; i < m; i++) {
-        int u, v; cin >> u >> v;
+    vector<vector<ll>> adj_uw(n + 1);
+    for (ll i = 0; i < m; i++) {
+        ll u, v; cin >> u >> v;
         adj_uw[u].push_back(v);
         adj_uw[v].push_back(u); // remove for directed
     }
 
-    vector<int> bfs_dist = bfs(1, n, adj_uw);
+    vector<ll> bfs_dist = bfs(1, n, adj_uw);
     // bfs_dist[node] = shortest hop-distance from node 1
 
     vector<bool> vis_it = dfs_iterative(1, n, adj_uw);
@@ -155,7 +140,7 @@ int main() {
     // visited_r[node] = true if reachable from node 1
 
     // --- Weighted graph (Dijkstra) ---
-    vector<vector<pair<int,ll>>> adj_w(n + 1);
+    vector<vector<pairll>> adj_w(n + 1);
     for (int i = 0; i < m; i++) {
         int u, v; ll w; cin >> u >> v >> w;
         adj_w[u].push_back({v, w});
