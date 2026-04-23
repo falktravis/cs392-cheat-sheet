@@ -1,23 +1,25 @@
 using Edge = pair<ll, ll>; // (neighbor, weight)
-using PQEntry = pair<ll, ll>; // (node, distance)
+using PQEntry = pair<ll, ll>; // (distance, node)
+const ll INF = 1e18;
 
 void dijkstra(vector<vector<Edge>>& graph, vector<ll>& dist, ll source) {
-	dist[source] = 0;
-	
-	priority_queue<PQEntry, vector<PQEntry>, greater<PQEntry>> pq;
-	pq.push({source, 0});
-	
-	while (!pq.empty()) {
-		auto [node, _] = pq.top();
-		pq.pop();
-		
-		for (auto [neighbor, weight] : graph[node]) {
-			int new_dist = dist[node] + weight;
-			
-			if (new_dist < dist[neighbor]) {
-				dist[neighbor] = new_dist;
-				pq.push({neighbor, new_dist});
-			}
-		}
-	}
+    dist[source] = 0;
+    
+    priority_queue<PQEntry, vector<PQEntry>, greater<PQEntry>> pq;
+    pq.push({0, source});
+    
+    while (!pq.empty()) {
+        auto [d, node] = pq.top(); 
+        pq.pop();
+        
+        if (d > dist[node]) continue;
+        
+        for (auto [neighbor, weight] : graph[node]) {
+            ll nd = d + weight;
+            if (nd < dist[neighbor]) {
+                dist[neighbor] = nd;
+                pq.push({nd, neighbor});
+            }
+        }
+    }
 }
