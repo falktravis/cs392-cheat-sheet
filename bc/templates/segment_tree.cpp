@@ -1,8 +1,8 @@
 class SegmentTree {
 	public:
-		vector<long long> tree;
-		long long n, size;
-		SegmentTree(vector<long long> &ar) {
+		vector<ll> tree;
+		ll n, size;
+		SegmentTree(vector<ll> &ar) {
 			size = ar.size();
 			n = 1;
     		while (n < size) {
@@ -13,12 +13,12 @@ class SegmentTree {
 		    for (ll i = 0; i < size; i++) {
 		    	tree[i + n] = ar[i];
 			}
-			for(long long i=n-1; i > 0; i--) {
+			for(ll i=n-1; i > 0; i--) {
 				tree[i] = tree[2*i] + tree[2*i+1];	
 			}
 		}
 	
-	void update(int i, int value) {
+	void update(ll i, ll value) {
 		i += n;
 		tree[i] = value;
 		while (i > 1) {
@@ -27,10 +27,10 @@ class SegmentTree {
 		}
 	}
 	
-	int query(int from, int to) {
+	ll query(ll from, ll to) {
 		from += n; // go to the second half of the array
 		to += n;
-		int ans = 0; // Initialize ans accordingly
+		ll ans = 0; // Initialize ans accordingly
 		while (from < to) {
 		 	if ((from & 1) == 1) { // 'from' is odd, so it is the right child of its parent,
 			 	ans = ans + tree[from]; // then interval includes node 'from’
