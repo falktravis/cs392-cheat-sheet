@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 // Adjacency Matrix
+=======
+
+
+
+>>>>>>> Stashed changes
 queue<ll> q;
 vector<bool> visited(n, false);
 q.push(0);
