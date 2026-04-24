@@ -1,7 +1,7 @@
 \documentclass[10pt,letterpaper]{extarticle}
 
 % ---- Packages ----
-\usepackage[margin=0.35in]{geometry}
+\usepackage[top=0.35in,bottom=0.35in,left=0.35in,right=0.35in,includefoot,footskip=18pt]{geometry}
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -23,7 +23,7 @@
 \setlength{\columnseprule}{0.3pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1pt}
-\pagestyle{empty}
+\pagestyle{plain}
 
 % ---- Section styling: tight, bold, ruled ----
 \titleformat{\section}
@@ -89,7 +89,8 @@
 }
 
 % ---- Compact problem entry: \prob{Name}{description sentence.} then lstlisting (style=cppt) ----
-\newcommand{\prob}[2]{\par\addvspace{10pt}\noindent\textbf{\normalsize #1.}\ {\small #2}\par\nopagebreak}
+% Also registers a \label{prob:<Name>} so the alphabetical index can \pageref it.
+\newcommand{\prob}[2]{\par\addvspace{10pt}\noindent\label{prob:#1}\textbf{\normalsize #1.}\ {\small #2}\par\nopagebreak}
 
 \begin{document}
 \begin{multicols*}{2}
@@ -117,6 +118,73 @@ int main() {
   return 0;
 }
 \end{lstlisting}
+
+% ==============================================================
+% PROBLEM INDEX (alphabetical; page refs resolve on 2nd pdflatex pass)
+% ==============================================================
+\section*{Problem Index \textemdash{} alphabetical}
+{\footnotesize
+10 Kinds of People (Kattis)\dotfill \pageref{prob:10 Kinds of People (Kattis)}\\
+All Pairs Shortest Path (Kattis)\dotfill \pageref{prob:All Pairs Shortest Path (Kattis)}\\
+Almost Union-Find (Kattis)\dotfill \pageref{prob:Almost Union-Find (Kattis)}\\
+Array Description (CSES)\dotfill \pageref{prob:Array Description (CSES)}\\
+Baby Bites (Kattis)\dotfill \pageref{prob:Baby Bites (Kattis)}\\
+Book Shop (CSES)\dotfill \pageref{prob:Book Shop (CSES)}\\
+Building Roads (CSES)\dotfill \pageref{prob:Building Roads (CSES)}\\
+Building Teams (CSES)\dotfill \pageref{prob:Building Teams (CSES)}\\
+Cent Savings (Kattis)\dotfill \pageref{prob:Cent Savings (Kattis)}\\
+Coin Combinations I (CSES)\dotfill \pageref{prob:Coin Combinations I (CSES)}\\
+Coin Combinations II (CSES)\dotfill \pageref{prob:Coin Combinations II (CSES)}\\
+Conservation (Kattis)\dotfill \pageref{prob:Conservation (Kattis)}\\
+Counting Divisors (CSES)\dotfill \pageref{prob:Counting Divisors (CSES)}\\
+Counting Rooms (CSES)\dotfill \pageref{prob:Counting Rooms (CSES)}\\
+Counting Towers (CSES)\dotfill \pageref{prob:Counting Towers (CSES)}\\
+Course Schedule (CSES)\dotfill \pageref{prob:Course Schedule (CSES)}\\
+Cycle Finding (CSES)\dotfill \pageref{prob:Cycle Finding (CSES)}\\
+Dice Combinations (CSES)\dotfill \pageref{prob:Dice Combinations (CSES)}\\
+Dynamic Minimum Range Queries (CSES)\dotfill \pageref{prob:Dynamic Minimum Range Queries (CSES)}\\
+Dynamic Sum Range Queries (CSES)\dotfill \pageref{prob:Dynamic Sum Range Queries (CSES)}\\
+Edit Distance (CSES)\dotfill \pageref{prob:Edit Distance (CSES)}\\
+Exact Change (Kattis)\dotfill \pageref{prob:Exact Change (Kattis)}\\
+Flight Discounts (CSES)\dotfill \pageref{prob:Flight Discounts (CSES)}\\
+Flight Routes Check (CSES)\dotfill \pageref{prob:Flight Routes Check (CSES)}\\
+Flowery Trails (Kattis)\dotfill \pageref{prob:Flowery Trails (Kattis)}\\
+Game Routes (CSES)\dotfill \pageref{prob:Game Routes (CSES)}\\
+GCDs (Kattis)\dotfill \pageref{prob:GCDs (Kattis)}\\
+Grandpa Bernie (Kattis)\dotfill \pageref{prob:Grandpa Bernie (Kattis)}\\
+Grid (Kattis)\dotfill \pageref{prob:Grid (Kattis)}\\
+Grid Paths I (CSES)\dotfill \pageref{prob:Grid Paths I (CSES)}\\
+Investigation (CSES)\dotfill \pageref{prob:Investigation (CSES)}\\
+Labyrinth (CSES)\dotfill \pageref{prob:Labyrinth (CSES)}\\
+Ladice (Kattis)\dotfill \pageref{prob:Ladice (Kattis)}\\
+Longest Flight Route (CSES)\dotfill \pageref{prob:Longest Flight Route (CSES)}\\
+Lost Map (Kattis)\dotfill \pageref{prob:Lost Map (Kattis)}\\
+Message Route (CSES)\dotfill \pageref{prob:Message Route (CSES)}\\
+Minimizing Coins (CSES)\dotfill \pageref{prob:Minimizing Coins (CSES)}\\
+Modular Arithmetic (Kattis)\dotfill \pageref{prob:Modular Arithmetic (Kattis)}\\
+Money Sums (CSES)\dotfill \pageref{prob:Money Sums (CSES)}\\
+Monsters (CSES)\dotfill \pageref{prob:Monsters (CSES)}\\
+Nikola (Kattis)\dotfill \pageref{prob:Nikola (Kattis)}\\
+Nine Packs (Kattis)\dotfill \pageref{prob:Nine Packs (Kattis)}\\
+Planets and Kingdoms (CSES)\dotfill \pageref{prob:Planets and Kingdoms (CSES)}\\
+Prime Sieve (Kattis)\dotfill \pageref{prob:Prime Sieve (Kattis)}\\
+Range Update Queries (CSES)\dotfill \pageref{prob:Range Update Queries (CSES)}\\
+Rectangle Cutting (CSES)\dotfill \pageref{prob:Rectangle Cutting (CSES)}\\
+Removing Digits (CSES)\dotfill \pageref{prob:Removing Digits (CSES)}\\
+Restaurant Orders (Kattis)\dotfill \pageref{prob:Restaurant Orders (Kattis)}\\
+Road Construction (CSES)\dotfill \pageref{prob:Road Construction (CSES)}\\
+Road Reparation (CSES)\dotfill \pageref{prob:Road Reparation (CSES)}\\
+Round Trip (CSES)\dotfill \pageref{prob:Round Trip (CSES)}\\
+Shortest Routes I (CSES)\dotfill \pageref{prob:Shortest Routes I (CSES)}\\
+Shortest Routes II (CSES)\dotfill \pageref{prob:Shortest Routes II (CSES)}\\
+Static Minimum Range Queries (CSES)\dotfill \pageref{prob:Static Minimum Range Queries (CSES)}\\
+Static Sum Range Queries (CSES)\dotfill \pageref{prob:Static Sum Range Queries (CSES)}\\
+Texas Summers (Kattis)\dotfill \pageref{prob:Texas Summers (Kattis)}\\
+Tri Tiling (Kattis)\dotfill \pageref{prob:Tri Tiling (Kattis)}\\
+Union-Find (Kattis)\dotfill \pageref{prob:Union-Find (Kattis)}\\
+Weak Vertices (Kattis)\dotfill \pageref{prob:Weak Vertices (Kattis)}\\
+Where's My Internet (Kattis)\dotfill \pageref{prob:Where's My Internet (Kattis)}\\
+}
 
 % ==============================================================
 % PART 1: PRIMITIVES / TEMPLATES

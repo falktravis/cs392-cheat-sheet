@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.24)  24 APR 2026 09:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.4.24)  24 APR 2026 09:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -291,20 +291,20 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (cheatsheet.aux)
 \openout1 = `cheatsheet.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -313,20 +313,20 @@ LaTeX Font Info:    ... okay on input line 94.
 * paper: letterpaper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
+* modes: includefoot 
 * h-part:(L,W,R)=(25.29494pt, 563.70512pt, 25.29494pt)
 * v-part:(T,H,B)=(25.29494pt, 744.38011pt, 25.29494pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=563.70512pt
-* \textheight=744.38011pt
+* \textheight=726.38011pt
 * \oddsidemargin=-46.97505pt
 * \evensidemargin=-46.97505pt
 * \topmargin=-83.97505pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
-* \footskip=30.0pt
+* \footskip=18.0pt
 * \marginparwidth=65.0pt
 * \marginparsep=11.0pt
 * \columnsep=14.45377pt
@@ -358,13 +358,13 @@ ii
 \everyMPtoPDFconversion=\toks28
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <9> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 108.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 109.
  [1
 
 {C:/Users/falkt/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
 [3]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <8> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 631.
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 699.
  [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
 [19] [20] (cheatsheet.aux)
  ***********
@@ -373,13 +373,13 @@ L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6176 strings out of 467871
- 87515 string characters out of 5418376
- 1614184 words of memory out of 5000000
- 35019 multiletter control sequences out of 15000+600000
+ 6236 strings out of 467871
+ 89281 string characters out of 5418376
+ 1581326 words of memory out of 5000000
+ 35079 multiletter control sequences out of 15000+600000
  641621 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,69p,243b,1925s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,6n,69p,243b,1932s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti
 0900.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ecit0800.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
@@ -387,24 +387,26 @@ Here is how much of TeX's memory you used:
 pen/ec/dpi600\ecrm0900.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/
 ljfour/jknappen/ec/dpi600\tcbx0900.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\falkt\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\falkt\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecit0900.pk> <C:\Users\falkt\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\falkt\
-AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0700.pk> <C:\Users\
-falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0700.pk> <C:\
-Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk
-><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmex
-tra/cmex9.pfb><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmmi6.pfb><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi9.pfb><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/falkt/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/falkt/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/falkt/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on cheatsheet.pdf (20 pages, 315101 bytes).
+ts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\falkt\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\falkt\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\falkt\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\falkt\
+AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecit0900.pk> <C:\Users\
+falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\
+Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0700.pk
+> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0
+700.pk> <C:\Users\falkt\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600
+\ecbx1440.pk><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cmextra/cmex9.pfb><C:/Users/falkt/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmmi6.pfb><C:/Users/falkt/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/falkt/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/falkt/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/falkt/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/falkt
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+Output written on cheatsheet.pdf (20 pages, 340300 bytes).
 PDF statistics:
- 718 PDF objects out of 1000 (max. 8388607)
+ 797 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
